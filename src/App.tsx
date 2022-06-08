@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { Button } from './components/Button';
 import { MovieCard } from './components/MovieCard';
 
-// import { SideBar } from './components/SideBar';
+import { SideBar } from './components/SideBar';
 // import { Content } from './components/Content';
 
 import { api } from './services/api';
@@ -17,7 +17,7 @@ interface GenreResponseProps {
   id: number;
   name: 'action' | 'comedy' | 'documentary' | 'drama' | 'horror' | 'family';
   title: string;
-}
+} //sidebar
 
 interface MovieProps {
   imdbID: string;
@@ -31,18 +31,18 @@ interface MovieProps {
 }
 
 export function App() {
-  const [selectedGenreId, setSelectedGenreId] = useState(1);
+//  const [selectedGenreId, setSelectedGenreId] = useState(1);//sidebar
 
-  const [genres, setGenres] = useState<GenreResponseProps[]>([]);
+  //const [genres, setGenres] = useState<GenreResponseProps[]>([]); //sidebar
 
   const [movies, setMovies] = useState<MovieProps[]>([]);
-  const [selectedGenre, setSelectedGenre] = useState<GenreResponseProps>({} as GenreResponseProps);
+  const [selectedGenre, setSelectedGenre] = useState<GenreResponseProps>({} as GenreResponseProps); //sidebar
 
-  useEffect(() => {
+  /* useEffect(() => {
     api.get<GenreResponseProps[]>('genres').then(response => {
       setGenres(response.data);
     });
-  }, []);
+  }, []);//sidebar */
 
   useEffect(() => {
     api.get<MovieProps[]>(`movies/?Genre_id=${selectedGenreId}`).then(response => {
@@ -50,17 +50,18 @@ export function App() {
     });
 
     api.get<GenreResponseProps>(`genres/${selectedGenreId}`).then(response => {
-      setSelectedGenre(response.data);
+      setSelectedGenre(response.data); //sidebar
     })
   }, [selectedGenreId]);
 
-  function handleClickButton(id: number) {
+ /*  function handleClickButton(id: number) {
     setSelectedGenreId(id);
-  }
+  } //sidebar */
 
   return (
     <div style={{ display: 'flex', flexDirection: 'row' }}>
-      <nav className="sidebar">
+      <SideBar/>
+     {/*  <nav className="sidebar">
         <span>Watch<p>Me</p></span>
 
         <div className="buttons-container">
@@ -75,7 +76,7 @@ export function App() {
           ))}
         </div>
 
-      </nav>
+      </nav> */}
 
       <div className="container">
         <header>
